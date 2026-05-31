@@ -1,0 +1,12 @@
+.env
+/vendor
+/wp-content/uploads
+/wp-content/upgrade
+/wp-content/cache
+/wp-content/advanced-cache.php
+/wp-content/backup-db
+/wp-content/blogs.dir
+/wp-content/object-cache.php
+/wp-content/plugins/hello.php
+/wp-content/uploads-db.php
+/wp-content/upgrade-temp-backup

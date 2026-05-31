@@ -1,0 +1,924 @@
+/*
+Theme Name: Winner
+Theme URI: https://example.com/winner
+Author: Codex
+Author URI: https://example.com
+Description: Giao dien thoi trang nam nu toi gian cho thuong hieu Winner.
+Version: 1.1.0
+Requires at least: 6.0
+Tested up to: 6.8
+Requires PHP: 8.1
+Text Domain: winner
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --winner-bg: #f8fafc;
+    --winner-surface: #ffffff;
+    --winner-surface-soft: #f1f5f9;
+    --winner-text: #0f172a;
+    --winner-muted: #64748b;
+    --winner-line: #f1f5f9;
+    --winner-accent: #b38e5d; /* Luxury Sand Gold */
+    --winner-accent-deep: #8c6c42;
+    --winner-accent-light: #f7f4ee;
+    --winner-dark: #0f172a;
+    --winner-dark-soft: #1e293b;
+    --winner-max: 1200px;
+    --winner-radius: 16px;
+    --winner-radius-sm: 8px;
+    --winner-radius-lg: 24px;
+    --winner-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02), 0 10px 20px -3px rgba(15, 23, 42, 0.04);
+    --winner-shadow-hover: 0 20px 40px -5px rgba(15, 23, 42, 0.08), 0 8px 16px -8px rgba(15, 23, 42, 0.08);
+    --winner-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--winner-bg);
+    color: var(--winner-text);
+    font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.winner-shell {
+    min-height: 100vh;
+}
+
+.winner-container {
+    width: min(calc(100% - 32px), var(--winner-max));
+    margin: 0 auto;
+}
+
+/* Header & Glassmorphism Navigation */
+.winner-site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--winner-line);
+    transition: var(--winner-transition);
+}
+
+.winner-header-row {
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.winner-brand {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.winner-brand-mark {
+    font-size: 1.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--winner-text);
+    background: linear-gradient(135deg, var(--winner-text) 0%, var(--winner-accent-deep) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: var(--winner-transition);
+}
+
+.winner-brand:hover .winner-brand-mark {
+    letter-spacing: 0.22em;
+}
+
+.winner-brand-note {
+    font-size: 0.7rem;
+    color: var(--winner-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 500;
+}
+
+.winner-nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.winner-nav a {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--winner-muted);
+    position: relative;
+    padding: 8px 0;
+    transition: var(--winner-transition);
+}
+
+.winner-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--winner-accent);
+    transition: var(--winner-transition);
+}
+
+.winner-nav a:hover {
+    color: var(--winner-text);
+}
+
+.winner-nav a:hover::after,
+.winner-nav .current-menu-item > a::after,
+.winner-nav .current_page_item > a::after {
+    width: 100%;
+}
+
+.winner-nav .current-menu-item > a,
+.winner-nav .current_page_item > a {
+    color: var(--winner-text);
+}
+
+.winner-main {
+    display: block;
+}
+
+/* Hero Section */
+.winner-hero {
+    padding: 60px 0 40px;
+}
+
+.winner-hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 32px;
+    align-items: stretch;
+}
+
+.winner-hero-copy {
+    padding: 64px;
+    background: var(--winner-surface);
+    border: 1px solid var(--winner-line);
+    border-radius: var(--winner-radius-lg);
+    box-shadow: var(--winner-shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.winner-hero-copy::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(197, 168, 128, 0.08) 0%, transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.winner-hero-copy > * {
+    position: relative;
+    z-index: 2;
+}
+
+.winner-label {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--winner-accent-deep);
+    background: var(--winner-accent-light);
+    padding: 6px 14px;
+    border-radius: 9999px;
+    margin-bottom: 20px;
+    width: fit-content;
+}
+
+.winner-hero h1 {
+    font-size: clamp(2.5rem, 4.5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: var(--winner-dark);
+}
+
+.winner-lead {
+    margin: 24px 0 0;
+    color: var(--winner-muted);
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.winner-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 36px;
+}
+
+.winner-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0 32px;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: var(--winner-transition);
+    cursor: pointer;
+}
+
+.winner-button-primary {
+    background: var(--winner-dark);
+    color: #ffffff;
+    border: 1px solid var(--winner-dark);
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.1);
+}
+
+.winner-button-primary:hover {
+    background: var(--winner-accent);
+    border-color: var(--winner-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(197, 168, 128, 0.2);
+}
+
+.winner-button-secondary {
+    background: transparent;
+    color: var(--winner-dark);
+    border: 1px solid var(--winner-line);
+}
+
+.winner-button-secondary:hover {
+    background: var(--winner-surface-soft);
+    border-color: var(--winner-muted);
+    transform: translateY(-3px);
+}
+
+.winner-hero-visual-wrap {
+    padding: 16px;
+    background: var(--winner-surface);
+    border: 1px solid var(--winner-line);
+    border-radius: var(--winner-radius-lg);
+    box-shadow: var(--winner-shadow);
+}
+
+.winner-hero-visual {
+    height: 100%;
+    min-height: 500px;
+    border-radius: var(--winner-radius);
+    padding: 36px;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    background: 
+        radial-gradient(circle at 80% 20%, rgba(197, 168, 128, 0.4), transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.35), transparent 50%),
+        linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.3);
+}
+
+.winner-hero-visual::before {
+    content: '';
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    width: 250px;
+    height: 250px;
+    background: rgba(197, 168, 128, 0.15);
+    filter: blur(60px);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.winner-hero-top,
+.winner-hero-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    z-index: 2;
+}
+
+.winner-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+    padding: 0 18px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    transition: var(--winner-transition);
+}
+
+.winner-pill:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+}
+
+.winner-hero-title {
+    font-size: clamp(2.4rem, 4vw, 3.8rem);
+    line-height: 1;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(to right, #ffffff, var(--winner-accent-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Sections & Grids */
+.winner-section {
+    padding: 80px 0;
+}
+
+.winner-section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+    margin-bottom: 48px;
+}
+
+.winner-section-heading {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--winner-dark);
+    margin: 10px 0 0;
+}
+
+.winner-section-text {
+    color: var(--winner-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 48ch;
+    margin: 0;
+}
+
+.winner-grid-2,
+.winner-grid-3,
+.winner-grid-4,
+.winner-contact-grid,
+.winner-post-grid {
+    display: grid;
+    gap: 32px;
+}
+
+.winner-grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.winner-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.winner-grid-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* Cards & Lookbooks */
+.winner-card {
+    background: var(--winner-surface);
+    border: 1px solid var(--winner-line);
+    border-radius: var(--winner-radius);
+    padding: 24px;
+    box-shadow: var(--winner-shadow);
+    transition: var(--winner-transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.winner-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--winner-shadow-hover);
+    border-color: rgba(197, 168, 128, 0.3);
+}
+
+.winner-lookbook {
+    aspect-ratio: 4 / 5;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    position: relative;
+    transition: var(--winner-transition);
+}
+
+.winner-lookbook-img {
+    aspect-ratio: 4 / 5;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    position: relative;
+    background: var(--winner-surface-soft);
+    border: 1px solid var(--winner-line);
+    transition: var(--winner-transition);
+}
+
+.winner-lookbook-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--winner-transition);
+}
+
+.winner-card:hover .winner-lookbook-img img {
+    transform: scale(1.06);
+}
+
+.winner-tone-men {
+    background: 
+        linear-gradient(180deg, rgba(15, 23, 42, 0.05) 0%, rgba(15, 23, 42, 0.4) 100%),
+        url('assets/images/prod_shirt_men.png') no-repeat center;
+    background-size: cover;
+}
+
+.winner-tone-women {
+    background: 
+        linear-gradient(180deg, rgba(15, 23, 42, 0.05) 0%, rgba(15, 23, 42, 0.4) 100%),
+        url('assets/images/prod_dress_women.png') no-repeat center;
+    background-size: cover;
+}
+
+.winner-tone-soft {
+    background: 
+        linear-gradient(180deg, rgba(15, 23, 42, 0.05) 0%, rgba(15, 23, 42, 0.4) 100%),
+        url('assets/images/prod_knit_women.png') no-repeat center;
+    background-size: cover;
+}
+
+.winner-tone-dark {
+    background: 
+        linear-gradient(180deg, rgba(15, 23, 42, 0.05) 0%, rgba(15, 23, 42, 0.4) 100%),
+        url('assets/images/prod_blazer_men.png') no-repeat center;
+    background-size: cover;
+}
+
+.winner-lookbook::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(15, 23, 42, 0.4) 100%);
+    opacity: 0.8;
+    transition: var(--winner-transition);
+}
+
+.winner-card:hover .winner-lookbook {
+    transform: scale(1.02);
+}
+
+.winner-card:hover .winner-lookbook::after {
+    opacity: 1;
+}
+
+.winner-card h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--winner-dark);
+}
+
+.winner-card p {
+    margin: 12px 0 0;
+    color: var(--winner-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.winner-price {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--winner-accent-deep);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+}
+
+/* Callout Highlights */
+.winner-highlight {
+    background: var(--winner-surface);
+    border: 1px solid var(--winner-line);
+    border-radius: var(--winner-radius);
+    padding: 28px;
+    box-shadow: var(--winner-shadow);
+    transition: var(--winner-transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.winner-highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--winner-accent);
+}
+
+.winner-highlight:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--winner-shadow-hover);
+    border-color: rgba(197, 168, 128, 0.2);
+}
+
+.winner-highlight strong {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--winner-dark);
+}
+
+/* Brand Banner Band */
+.winner-band {
+    padding: 64px;
+    border-radius: var(--winner-radius-lg);
+    background: var(--winner-dark);
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+}
+
+.winner-band::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 90% 10%, rgba(197, 168, 128, 0.15), transparent 50%), radial-gradient(circle at 10% 90%, rgba(99, 102, 241, 0.1), transparent 50%);
+    pointer-events: none;
+}
+
+.winner-band-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.winner-band h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: #ffffff;
+}
+
+.winner-band p {
+    margin: 16px 0 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 52ch;
+}
+
+.winner-band .winner-button-primary {
+    background: #ffffff;
+    color: var(--winner-dark);
+    border-color: #ffffff;
+    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
+}
+
+.winner-band .winner-button-primary:hover {
+    background: var(--winner-accent-light);
+    color: var(--winner-accent-deep);
+    transform: translateY(-3px);
+}
+
+.winner-band .winner-button-secondary {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+}
+
+.winner-band .winner-button-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
+    transform: translateY(-3px);
+}
+
+/* Page Templates */
+.winner-page-header {
+    padding: 60px 0 20px;
+    text-align: center;
+}
+
+.winner-page-title {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 12px 0 0;
+    color: var(--winner-dark);
+}
+
+.winner-note {
+    margin: 16px 0 0;
+    color: var(--winner-muted);
+    font-size: 1.1rem;
+}
+
+.winner-page-content {
+    padding: 20px 0 80px;
+}
+
+.winner-page-box {
+    background: var(--winner-surface);
+    border: 1px solid var(--winner-line);
+    border-radius: var(--winner-radius);
+    padding: 40px;
+    box-shadow: var(--winner-shadow);
+}
+
+.winner-page-box > :first-child {
+    margin-top: 0;
+}
+
+.winner-page-box > :last-child {
+    margin-bottom: 0;
+}
+
+/* Post Cards & Grid */
+.winner-post-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.winner-post-card {
+    background: var(--winner-surface);
+    border: 1px solid var(--winner-line);
+    border-radius: var(--winner-radius);
+    padding: 32px;
+    box-shadow: var(--winner-shadow);
+    transition: var(--winner-transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.winner-post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--winner-shadow-hover);
+    border-color: rgba(197, 168, 128, 0.2);
+}
+
+.winner-post-card time {
+    display: inline-block;
+    color: var(--winner-accent-deep);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+}
+
+.winner-post-card h2 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.winner-post-card h2 a {
+    color: var(--winner-dark);
+    transition: var(--winner-transition);
+}
+
+.winner-post-card h2 a:hover {
+    color: var(--winner-accent);
+}
+
+.winner-post-card p {
+    margin: 14px 0 0;
+    color: var(--winner-muted);
+    font-size: 0.98rem;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+/* Contact Page Template */
+.winner-contact-grid {
+    grid-template-columns: 1fr 1fr;
+}
+
+.winner-contact-box {
+    background: var(--winner-surface);
+    border: 1px solid var(--winner-line);
+    border-radius: var(--winner-radius);
+    padding: 40px;
+    box-shadow: var(--winner-shadow);
+}
+
+.winner-contact-box h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--winner-dark);
+}
+
+.winner-contact-list {
+    list-style: none;
+    margin: 24px 0 0;
+    padding: 0;
+}
+
+.winner-contact-list li {
+    font-size: 1rem;
+    color: var(--winner-muted);
+    position: relative;
+    padding-left: 24px;
+}
+
+.winner-contact-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--winner-accent);
+    font-weight: bold;
+}
+
+.winner-contact-list li + li {
+    margin-top: 14px;
+}
+
+.winner-products-callout {
+    margin-top: 32px;
+}
+
+/* Footer Section */
+.winner-site-footer {
+    padding: 20px 0 60px;
+    background: var(--winner-surface);
+    border-top: 1px solid var(--winner-line);
+}
+
+.winner-footer-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    color: var(--winner-muted);
+}
+
+.winner-footer-box strong {
+    font-size: 1.25rem;
+    color: var(--winner-dark);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.winner-footer-box span {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 0.95rem;
+}
+
+.winner-footer-links ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.winner-footer-links a {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--winner-muted);
+    transition: var(--winner-transition);
+}
+
+.winner-footer-links a:hover {
+    color: var(--winner-accent);
+}
+
+.winner-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+}
+
+.screen-reader-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 960px) {
+    .winner-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .winner-hero-copy {
+        padding: 40px 24px;
+    }
+
+    .winner-hero-visual {
+        min-height: 400px;
+        padding: 28px;
+    }
+
+    .winner-grid-2,
+    .winner-grid-3,
+    .winner-grid-4,
+    .winner-band-grid,
+    .winner-contact-grid,
+    .winner-mini-grid,
+    .winner-post-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .winner-header-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 0;
+    }
+
+    .winner-section-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .winner-footer-box {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+@media (max-width: 640px) {
+    .winner-actions {
+        flex-direction: column;
+    }
+
+    .winner-button {
+        width: 100%;
+    }
+
+    .winner-page-box,
+    .winner-contact-box {
+        padding: 24px;
+    }
+}

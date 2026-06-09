@@ -205,7 +205,7 @@ function winner_get_contact_form_state(): array
 
     if (!$sent) {
         $state['success'] = true;
-        $state['message'] = 'Winner đã nhận được thông tin của bạn. Email thông báo đang tạm thời chưa gửi được, nhưng yêu cầu đã được lưu và đội ngũ sẽ kiểm tra sớm.';
+        $state['message'] = 'Winner đã nhận được thông tin của bạn. Yêu cầu đã được lưu và đội ngũ sẽ kiểm tra sớm.';
     } else {
         $state['success'] = true;
         $state['message'] = 'Winner đã nhận được thông tin của bạn. Chúng tôi sẽ liên hệ sớm nhất.';

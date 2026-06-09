@@ -35,6 +35,82 @@ function winner_excerpt_more(string $more): string
 }
 add_filter('excerpt_more', 'winner_excerpt_more');
 
+function winner_register_contact_post_type(): void
+{
+    register_post_type('winner_contact', [
+        'labels' => [
+            'name' => 'Liên hệ',
+            'singular_name' => 'Liên hệ',
+            'menu_name' => 'Liên hệ',
+            'add_new_item' => 'Thêm liên hệ',
+            'edit_item' => 'Chi tiết liên hệ',
+            'new_item' => 'Liên hệ mới',
+            'view_item' => 'Xem liên hệ',
+            'search_items' => 'Tìm liên hệ',
+            'not_found' => 'Chưa có liên hệ nào.',
+            'not_found_in_trash' => 'Không có liên hệ trong thùng rác.',
+        ],
+        'public' => false,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'show_in_admin_bar' => false,
+        'exclude_from_search' => true,
+        'show_in_nav_menus' => false,
+        'menu_icon' => 'dashicons-email-alt',
+        'supports' => ['title', 'editor'],
+        'capability_type' => 'post',
+        'map_meta_cap' => true,
+    ]);
+}
+add_action('init', 'winner_register_contact_post_type');
+
+function winner_store_contact_submission(array $values)
+{
+    return wp_insert_post([
+        'post_type' => 'winner_contact',
+        'post_status' => 'publish',
+        'post_title' => sprintf('%s - %s', $values['name'], $values['subject']),
+        'post_content' => $values['message'],
+        'meta_input' => [
+            'winner_contact_name' => $values['name'],
+            'winner_contact_phone' => $values['phone'],
+            'winner_contact_email' => $values['email'],
+            'winner_contact_subject' => $values['subject'],
+        ],
+    ], true);
+}
+
+function winner_contact_admin_columns(array $columns): array
+{
+    return [
+        'cb' => $columns['cb'] ?? '',
+        'title' => 'Khách hàng',
+        'winner_contact_subject' => 'Nhu cầu',
+        'winner_contact_phone' => 'Số điện thoại',
+        'winner_contact_email' => 'Email',
+        'date' => $columns['date'] ?? 'Ngày',
+    ];
+}
+add_filter('manage_winner_contact_posts_columns', 'winner_contact_admin_columns');
+
+function winner_contact_admin_column_content(string $column, int $post_id): void
+{
+    if ($column === 'winner_contact_subject') {
+        echo esc_html((string) get_post_meta($post_id, 'winner_contact_subject', true));
+        return;
+    }
+
+    if ($column === 'winner_contact_phone') {
+        echo esc_html((string) get_post_meta($post_id, 'winner_contact_phone', true));
+        return;
+    }
+
+    if ($column === 'winner_contact_email') {
+        echo esc_html((string) get_post_meta($post_id, 'winner_contact_email', true));
+    }
+}
+add_action('manage_winner_contact_posts_custom_column', 'winner_contact_admin_column_content', 10, 2);
+
 function winner_get_contact_form_state(): array
 {
     $state = [
@@ -99,17 +175,24 @@ function winner_get_contact_form_state(): array
         return $state;
     }
 
+    $submission_id = winner_store_contact_submission($state['values']);
+    if (is_wp_error($submission_id) || !$submission_id) {
+        $state['message'] = 'Hệ thống chưa lưu được thông tin. Vui lòng thử lại sau.';
+        return $state;
+    }
+
     $admin_email = get_option('admin_email');
-    $subject = sprintf('Khach hang lien he tu website: %s', $state['values']['subject']);
+    $subject = sprintf('Khách hàng liên hệ từ website: %s', $state['values']['subject']);
     $body = implode("\n", [
-        'Khach hang vua gui thong tin lien he tu website Winner.',
+        'Khách hàng vừa gửi thông tin liên hệ từ website Winner.',
         '',
-        'Ho ten: ' . $state['values']['name'],
-        'So dien thoai: ' . $state['values']['phone'],
+        'Họ tên: ' . $state['values']['name'],
+        'Số điện thoại: ' . $state['values']['phone'],
         'Email: ' . $state['values']['email'],
-        'Nhu cau: ' . $state['values']['subject'],
+        'Nhu cầu: ' . $state['values']['subject'],
+        'Mã liên hệ: #' . $submission_id,
         '',
-        'Noi dung:',
+        'Nội dung:',
         $state['values']['message'],
     ]);
 
@@ -121,12 +204,12 @@ function winner_get_contact_form_state(): array
     $sent = wp_mail($admin_email, $subject, $body, $headers);
 
     if (!$sent) {
-        $state['message'] = 'He thong chua gui duoc thong tin. Vui long thu lai sau.';
-        return $state;
+        $state['success'] = true;
+        $state['message'] = 'Winner đã nhận được thông tin của bạn. Email thông báo đang tạm thời chưa gửi được, nhưng yêu cầu đã được lưu và đội ngũ sẽ kiểm tra sớm.';
+    } else {
+        $state['success'] = true;
+        $state['message'] = 'Winner đã nhận được thông tin của bạn. Chúng tôi sẽ liên hệ sớm nhất.';
     }
-
-    $state['success'] = true;
-    $state['message'] = 'Winner da nhan duoc thong tin cua ban. Chung toi se lien he som nhat.';
     $state['values'] = [
         'name' => '',
         'phone' => '',

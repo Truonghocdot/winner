@@ -48,7 +48,7 @@ get_header();
                                     name="winner_name"
                                     type="text"
                                     value="<?php echo esc_attr($contact_form['values']['name']); ?>"
-                                    placeholder="Nguyen Van A"
+                                    placeholder="Nguyễn Văn A"
                                     required
                                 >
                                 <?php if (isset($contact_form['errors']['name'])) : ?>
@@ -78,7 +78,7 @@ get_header();
                                     name="winner_email"
                                     type="email"
                                     value="<?php echo esc_attr($contact_form['values']['email']); ?>"
-                                    placeholder="ban@email.com"
+                                    placeholder="bạn@email.com"
                                     required
                                 >
                                 <?php if (isset($contact_form['errors']['email'])) : ?>
@@ -93,7 +93,7 @@ get_header();
                                     name="winner_subject"
                                     type="text"
                                     value="<?php echo esc_attr($contact_form['values']['subject']); ?>"
-                                    placeholder="Tu van san pham / Dat hang / Hop tac"
+                                    placeholder="Tư vấn sản phẩm / Đặt hàng / Hợp tác"
                                     required
                                 >
                                 <?php if (isset($contact_form['errors']['subject'])) : ?>
@@ -108,7 +108,7 @@ get_header();
                                 id="winner_message"
                                 name="winner_message"
                                 rows="6"
-                                placeholder="Moi ban de lai noi dung can Winner ho tro"
+                                placeholder="Mời bạn để lại nội dung cần Winner hỗ trợ"
                                 required
                             ><?php echo esc_textarea($contact_form['values']['message']); ?></textarea>
                             <?php if (isset($contact_form['errors']['message'])) : ?>

@@ -792,6 +792,113 @@ img {
     margin-top: 14px;
 }
 
+.winner-contact-form-wrap {
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--winner-line);
+}
+
+.winner-contact-form-wrap h3 {
+    margin: 0;
+    font-size: 1.45rem;
+    color: var(--winner-dark);
+}
+
+.winner-contact-intro {
+    margin: 12px 0 0;
+    color: var(--winner-muted);
+}
+
+.winner-form-notice {
+    margin-top: 24px;
+    padding: 14px 16px;
+    border-radius: var(--winner-radius-sm);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.winner-form-notice.is-success {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    color: #166534;
+}
+
+.winner-form-notice.is-error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+}
+
+.winner-contact-form {
+    margin-top: 24px;
+}
+
+.winner-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.winner-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.winner-form-field + .winner-form-field {
+    margin-top: 20px;
+}
+
+.winner-form-grid .winner-form-field + .winner-form-field {
+    margin-top: 0;
+}
+
+.winner-form-field label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--winner-dark);
+}
+
+.winner-form-field input,
+.winner-form-field textarea {
+    width: 100%;
+    border: 1px solid #dbe4ee;
+    border-radius: 14px;
+    padding: 14px 16px;
+    font: inherit;
+    color: var(--winner-text);
+    background: var(--winner-surface);
+    transition: var(--winner-transition);
+}
+
+.winner-form-field input::placeholder,
+.winner-form-field textarea::placeholder {
+    color: #94a3b8;
+}
+
+.winner-form-field input:focus,
+.winner-form-field textarea:focus {
+    outline: none;
+    border-color: var(--winner-accent);
+    box-shadow: 0 0 0 4px rgba(179, 142, 93, 0.12);
+}
+
+.winner-form-field textarea {
+    resize: vertical;
+    min-height: 160px;
+}
+
+.winner-field-error {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #b91c1c;
+}
+
+.winner-contact-form .winner-button {
+    margin-top: 24px;
+    border: 0;
+}
+
 .winner-products-callout {
     margin-top: 32px;
 }
@@ -905,6 +1012,10 @@ img {
         flex-direction: column;
         align-items: center;
         text-align: center;
+    }
+
+    .winner-form-grid {
+        grid-template-columns: 1fr;
     }
 }
 

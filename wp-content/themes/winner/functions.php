@@ -35,6 +35,109 @@ function winner_excerpt_more(string $more): string
 }
 add_filter('excerpt_more', 'winner_excerpt_more');
 
+function winner_get_contact_form_state(): array
+{
+    $state = [
+        'success' => false,
+        'message' => '',
+        'errors' => [],
+        'values' => [
+            'name' => '',
+            'phone' => '',
+            'email' => '',
+            'subject' => '',
+            'message' => '',
+        ],
+    ];
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        return $state;
+    }
+
+    if (!isset($_POST['winner_contact_submit'])) {
+        return $state;
+    }
+
+    $nonce = isset($_POST['winner_contact_nonce']) ? sanitize_text_field(wp_unslash($_POST['winner_contact_nonce'])) : '';
+    if (!wp_verify_nonce($nonce, 'winner_contact_form')) {
+        $state['message'] = 'Phiên gửi biểu mẫu đã hết hạn. Vui lòng thử lại.';
+        return $state;
+    }
+
+    $state['values'] = [
+        'name' => isset($_POST['winner_name']) ? sanitize_text_field(wp_unslash($_POST['winner_name'])) : '',
+        'phone' => isset($_POST['winner_phone']) ? sanitize_text_field(wp_unslash($_POST['winner_phone'])) : '',
+        'email' => isset($_POST['winner_email']) ? sanitize_email(wp_unslash($_POST['winner_email'])) : '',
+        'subject' => isset($_POST['winner_subject']) ? sanitize_text_field(wp_unslash($_POST['winner_subject'])) : '',
+        'message' => isset($_POST['winner_message']) ? sanitize_textarea_field(wp_unslash($_POST['winner_message'])) : '',
+    ];
+
+    if ($state['values']['name'] === '') {
+        $state['errors']['name'] = 'Vui lòng nhập họ và tên.';
+    }
+
+    if ($state['values']['phone'] === '') {
+        $state['errors']['phone'] = 'Vui lòng nhập số điện thoại.';
+    }
+
+    if ($state['values']['email'] === '') {
+        $state['errors']['email'] = 'Vui lòng nhập email.';
+    } elseif (!is_email($state['values']['email'])) {
+        $state['errors']['email'] = 'Địa chỉ email chưa đúng định dạng.';
+    }
+
+    if ($state['values']['subject'] === '') {
+        $state['errors']['subject'] = 'Vui lòng nhập nhu cầu liên hệ.';
+    }
+
+    if ($state['values']['message'] === '') {
+        $state['errors']['message'] = 'Vui lòng nhập nội dung cần hỗ trợ.';
+    }
+
+    if (!empty($state['errors'])) {
+        $state['message'] = 'Vui lòng kiểm tra lại các trường thông tin.';
+        return $state;
+    }
+
+    $admin_email = get_option('admin_email');
+    $subject = sprintf('Khach hang lien he tu website: %s', $state['values']['subject']);
+    $body = implode("\n", [
+        'Khach hang vua gui thong tin lien he tu website Winner.',
+        '',
+        'Ho ten: ' . $state['values']['name'],
+        'So dien thoai: ' . $state['values']['phone'],
+        'Email: ' . $state['values']['email'],
+        'Nhu cau: ' . $state['values']['subject'],
+        '',
+        'Noi dung:',
+        $state['values']['message'],
+    ]);
+
+    $headers = [
+        'Content-Type: text/plain; charset=UTF-8',
+        sprintf('Reply-To: %s <%s>', $state['values']['name'], $state['values']['email']),
+    ];
+
+    $sent = wp_mail($admin_email, $subject, $body, $headers);
+
+    if (!$sent) {
+        $state['message'] = 'He thong chua gui duoc thong tin. Vui long thu lai sau.';
+        return $state;
+    }
+
+    $state['success'] = true;
+    $state['message'] = 'Winner da nhan duoc thong tin cua ban. Chung toi se lien he som nhat.';
+    $state['values'] = [
+        'name' => '',
+        'phone' => '',
+        'email' => '',
+        'subject' => '',
+        'message' => '',
+    ];
+
+    return $state;
+}
+
 function winner_seed_pages(): void
 {
     $pages = [
